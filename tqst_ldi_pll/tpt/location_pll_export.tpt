@@ -1,0 +1,60 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA LOCATION_SCHEMA
+   DESCRIPTION 'This is LOCATION SCHEMA'
+   (
+      LOCATION_ID INTEGER,
+      LOCATION_NAME CHAR(40),
+      LOCATION_OPEN_DT INTDATE,
+      LOCATION_CLOSE_DT INTDATE,
+      LOCATION_EFFECTIVE_DT INTDATE,
+      LOCATION_TOTAL_AREA_MEAS DECIMAL(18,4),
+      CHAIN_CD VARCHAR(50),
+      CHANNEL_CD VARCHAR(50),
+      DISTRICT_CD VARCHAR(50),
+      PARENT_LOCATION_ID INTEGER,
+      LOCATION_MGR_ASSOCIATE_ID INTEGER,
+      LOCATION_TYPE_CD VARCHAR(10)
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA LOCATION_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'LOCATION_PLL_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT LOCATION_ID, LOCATION_NAME, LOCATION_OPEN_DT, 
+                                   LOCATION_CLOSE_DT, LOCATION_EFFECTIVE_DT, LOCATION_TOTAL_AREA_MEAS, 
+                                   CHAIN_CD, CHANNEL_CD, DISTRICT_CD, PARENT_LOCATION_ID, LOCATION_MGR_ASSOCIATE_ID, 
+                                   LOCATION_TYPE_CD FROM SIT_LDI_PLL_STAGE.LOCATION_PLL 
+                                   where LOCATION_EFFECTIVE_DT > ''2000-02-01'';'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA LOCATION_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'LOCATION_PLL_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

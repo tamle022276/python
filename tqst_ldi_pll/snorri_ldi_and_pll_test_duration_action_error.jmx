@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Load Isolation and Partition-Level Locking Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments">Implementation SIT Design Specification for Load Isolation(LDI) and Partition-Level Locking (PLL)</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="run_test" elementType="Argument">
+            <stringProp name="Argument.name">run_test</stringProp>
+            <stringProp name="Argument.value">${__P(run_test,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="run_setup" elementType="Argument">
+            <stringProp name="Argument.name">run_setup</stringProp>
+            <stringProp name="Argument.value">${__P(run_setup,false)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="run_cleanup" elementType="Argument">
+            <stringProp name="Argument.name">run_cleanup</stringProp>
+            <stringProp name="Argument.value">${__P(run_cleanup,false)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="dbs_name" elementType="Argument">
+            <stringProp name="Argument.name">dbs_name</stringProp>
+            <stringProp name="Argument.value">${__P(dbs_name,hela)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="run_iteration" elementType="Argument">
+            <stringProp name="Argument.name">run_iteration</stringProp>
+            <stringProp name="Argument.value">${__P(run_iteration,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="run_duration" elementType="Argument">
+            <stringProp name="Argument.name">run_duration</stringProp>
+            <stringProp name="Argument.value">${__P(run_duration,0)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="num_users" elementType="Argument">
+            <stringProp name="Argument.name">num_users</stringProp>
+            <stringProp name="Argument.value">${__P(num_users,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ldi_read_clone" elementType="Argument">
+            <stringProp name="Argument.name">ldi_read_clone</stringProp>
+            <stringProp name="Argument.value">${__P(ldi_read_clone,3)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="pll_read_clone" elementType="Argument">
+            <stringProp name="Argument.name">pll_read_clone</stringProp>
+            <stringProp name="Argument.value">${__P(pll_read_clone,3)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="all_read_clone" elementType="Argument">
+            <stringProp name="Argument.name">all_read_clone</stringProp>
+            <stringProp name="Argument.value">${__P(all_read_clone,3)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ldi_write" elementType="Argument">
+            <stringProp name="Argument.name">ldi_write</stringProp>
+            <stringProp name="Argument.value">${__P(ldi_write,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="pll_write" elementType="Argument">
+            <stringProp name="Argument.name">pll_write</stringProp>
+            <stringProp name="Argument.value">${__P(pll_write,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="validate_results" elementType="Argument">
+            <stringProp name="Argument.name">validate_results</stringProp>
+            <stringProp name="Argument.value">${__P(validate_results,true)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="dbc_password" elementType="Argument">
+            <stringProp name="Argument.name">dbc_password</stringProp>
+            <stringProp name="Argument.value">${__P(dbc_password,dbc)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="node_password" elementType="Argument">
+            <stringProp name="Argument.name">node_password</stringProp>
+            <stringProp name="Argument.value">${__P(node_password,Sit4me123!)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="update_control_file" elementType="Argument">
+            <stringProp name="Argument.name">update_control_file</stringProp>
+            <stringProp name="Argument.value">${__P(update_control_file,false)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tpt_trace_level" elementType="Argument">
+            <stringProp name="Argument.name">tpt_trace_level</stringProp>
+            <stringProp name="Argument.value">${__P(tpt_trace_level,none)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="run_timestamp" elementType="Argument">
+            <stringProp name="Argument.name">run_timestamp</stringProp>
+            <stringProp name="Argument.value">${__P(run_timestamp,${__time(yyyy-MM-dd-HH-mm)})}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="action_on_error" elementType="Argument">
+            <stringProp name="Argument.name">action_on_error</stringProp>
+            <stringProp name="Argument.value">${__P(action_on_error,stoptestnow)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename">ldi_pll_assertions.log</stringProp>
+        <stringProp name="TestPlan.comments">shows results from any Assertions</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="preTest" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1452726771000</longProp>
+        <longProp name="ThreadGroup.end_time">1452726771000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">This preTest included Validate Params, Setup, and Test Initialize</stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="respCodeAssertion" enabled="false">
+          <stringProp name="TestPlan.comments">any expected error codes should be specified in the Parameters section</stringProp>
+          <stringProp name="BeanShellAssertion.query"></stringProp>
+          <stringProp name="BeanShellAssertion.filename">${__P(commonPath)}/respCodeAssertion.bsh</stringProp>
+          <stringProp name="BeanShellAssertion.parameters"></stringProp>
+          <boolProp name="BeanShellAssertion.resetInterpreter">true</boolProp>
+        </BeanShellAssertion>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Validate Test Parameters" enabled="false">
+          <stringProp name="TestPlan.comments">This is to validate test parameters input by user</stringProp>
+          <stringProp name="BeanShellSampler.query">//debug();
+
+import org.apache.jmeter.util.JMeterUtils;
+
+/*
+  validate the following test parameters for this test...
+  
+	ParameterName			Values		Description
+    	-------------			------		-----------
+	dbsName				Not NULL		Name of Teradata DBS system.
+
+	runIteration			0-99999		Number of iteration test will execute
+
+	runDurationMinutes		0-10080		Number of minutes test will execute (max 7 days)
+
+	numUsers				1-10			Number of users for this test
+
+	numLDIReadClone		0-50			Number of read LDI tables execute in parallel per user
+
+	numPLLReadClone		0-50			Number of read PLL tables execute in parallel per user
+
+	numALLReadClone		0-50			Number of read ALL tables execute in parallel per user
+	
+	runLDIwrite			y,n		 	Run insert/update/delete/load on LDI tables
+
+	runPLLwrite			y,n		 	Run insert/update/delete/load on PLL tables
+
+	runValidate			y,n		 	Run validate results on select queries
+									
+	runTest				y,n		     Run test phase
+
+	runSetup				y,n		 	Run setup phase 
+
+	runCleanup			y,n		 	Run cleanup phase 
+
+	dbcPassword			Not Null		Password of DBC if not using default dbc
+
+	UpdateControlFile		y,n			Update control files if new sql add or expected result to change.
+ */
+
+String loghdr1 = &quot;*** Test Plan: &quot; + &quot;${__TestPlanName()}&quot; + &quot;, Sample = &quot; + SampleResult.getSampleLabel();
+String dbsName = vars.get(&quot;dbsName&quot;);  
+
+/*
+ * Let&apos;s first print out test parameters to the jmeter log...
+ */
+log.info(loghdr1);
+log.info(&quot;\tList of test parameters...&quot;);
+log.info(&quot;\t\tdbsName: &quot; + ${dbsName});
+log.info(&quot;\t\trunIteration: &quot; + ${runIteration});
+log.info(&quot;\t\trunDurationMinutes: &quot; + ${runDurationMinutes});
+log.info(&quot;\t\tnumUsers: &quot; + ${numUsers});
+log.info(&quot;\t\tnumLDIReadClone: &quot; + ${numLDIReadClone});
+log.info(&quot;\t\tnumPLLReadClone: &quot; + ${numPLLReadClone});
+log.info(&quot;\t\tnumALLReadClone: &quot; + ${numALLReadClone});
+log.info(&quot;\t\trunLDIwrite: &quot; + ${runLDIwrite});
+log.info(&quot;\t\trunPLLwrite: &quot; + ${runPLLwrite});
+log.info(&quot;\t\trunValidate: &quot; + ${runValidate});
+log.info(&quot;\t\trunTest: &quot; + ${runTest});
+log.info(&quot;\t\trunSetup: &quot; + ${runSetup});
+log.info(&quot;\t\trunCleanup: &quot; + ${runCleanup});
+log.info(&quot;\t\tdbcPassword: &quot; + ${dbcPassword});
+log.info(&quot;\t\tUpdateControlFile: &quot; + ${UpdateControlFile});
+
+SampleResult.setStopTestNow(true);	 
+
+/*
+ * validating test parameters...
+ */
+
+ if ( ${dbsName} == null) {
+  String errMsg = &quot;***\t dbsName parameter can not be NULL &lt;&quot; + dbsName + &quot;&gt;.&quot;;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${runIteration} &lt; 0 || ${runIteration} &gt; 99999) {
+  String errMsg = &quot;***\t The input value of parameter runIteration =&quot; + ${runIteration} + &quot; is invalid. It must be in range of 0-99999&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${runDurationMinutes} &lt; 0 || ${runDurationMinutes} &gt; 10080) {
+  String errMsg = &quot;***\t The input value of parameter runDurationMinutes =&quot; + ${runDurationMinutes} + &quot; is invalid. It must be in range of 0-10080&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${runIteration} &gt; 0 &amp;&amp; ${runDurationMinutes} &gt; 0) {
+  String errMsg = &quot;***\t Both input runIteration (&quot; + ${runIteration} + &quot;) and runDurationMinutes (&quot; + ${runDurationMinutes} + &quot;) must not greater than 0, need to run either iteration or duration not both&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${runIteration} &lt;= 0 &amp;&amp; ${runDurationMinutes} &lt;= 0 ) {
+  String errMsg = &quot;***\t The input runIteration and runDurationMinutes must not be 0 or less&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${numUsers} &lt; 1 || ${numUsers} &gt; 10) {
+  String errMsg = &quot;***\t The input value of parameter numUsers =&quot; + ${numUsers} + &quot; is invalid. It must be in range of 1-10&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${numLDIReadClone} &lt; 0 || ${numLDIReadClone} &gt; 50) {
+  String errMsg = &quot;***\t The input value of parameter numLDIReadClone =&quot; + ${numLDIReadClone} + &quot; is invalid. It must be in range of 0-50&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${numPLLReadClone} &lt; 0 || ${numPLLReadClone} &gt; 50) {
+  String errMsg = &quot;***\t The input value of parameter numPLLReadClone =&quot; + ${numPLLReadClone} + &quot; is invalid. It must be in range of 0-50&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${numALLReadClone} &lt; 0 || ${numALLReadClone} &gt; 50) {
+  String errMsg = &quot;***\t The input value of parameter numALLReadClone =&quot; + ${numALLReadClone} + &quot; is invalid. It must be in range of 0-50&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runLDIwrite}&apos; != &apos;y&apos; &amp;&amp; &apos;${runLDIwrite}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runLDIwrite =&quot; + ${runLDIwrite} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runPLLwrite}&apos; != &apos;y&apos; &amp;&amp; &apos;${runPLLwrite}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runPLLwrite = &quot; + ${runPLLwrite} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runValidate}&apos; != &apos;y&apos; &amp;&amp; &apos;${runValidate}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runValidate = &quot; + ${runValidate} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runTest}&apos; != &apos;y&apos; &amp;&amp; &apos;${runTest}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runTest = &quot; + ${runTest} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runSetup}&apos; != &apos;y&apos; &amp;&amp; &apos;${runSetup}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runSetup = &quot; + ${runSetup} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${runCleanup}&apos; != &apos;y&apos; &amp;&amp; &apos;${runCleanup}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter runCleanup = &quot; + ${runCleanup} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( ${dbcPassword} == null ) {
+  String errMsg = &quot;***\t dbcPassword parameter can not be NULL &lt;&quot; + dbcPassword + &quot;&gt;.&quot;;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+if ( &apos;${UpdateControlFile}&apos; != &apos;y&apos; &amp;&amp; &apos;${UpdateControlFile}&apos; != &apos;n&apos; ) {
+  String errMsg = &quot;***\t The user input value of parameter UpdateControlFile = &quot; + ${UpdateControlFile} + &quot; is invalid. It should be y or n&quot; ;
+  log.error(loghdr1);
+  log.error(errMsg);
+  return(errMsg);
+}
+/* 
+ *  all test parameters are valid, we&apos;re good to go...
+ */
+
+SampleResult.setStopTestNow(false);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">true</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Create Dynamic Variables" enabled="true">
+          <stringProp name="BeanShellSampler.query">import org.apache.jmeter.util.JMeterUtils;
+import org.apache.jmeter.services.FileServer;
+import java.text.SimpleDateFormat; 
+import java.util.Date; 
+import java.util.Calendar;
+
+//Convert minutes to seconds for duration since Jmeter only accept seconds
+int run_duration = Integer.parseInt(vars.get(&quot;run_duration&quot;));
+duration_seconds = run_duration * 60;
+JMeterUtils.setProperty(&quot;duration_seconds&quot;, Integer.toString(duration_seconds));
+
+//Get test plan current path
+String myscriptPath = (FileServer.getFileServer().getBaseDir() + File.separator);
+JMeterUtils.setProperty(&quot;scriptPath&quot;, myscriptPath);
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run Cleanup If ${run_setup} == &apos;true&apos;" enabled="true">
+          <stringProp name="TestPlan.comments">We need to run cleanup to make sure old data are gone before run setup	</stringProp>
+          <stringProp name="IfController.condition">&apos;${run_setup}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_and_pll_cleanup.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_and_pll_cleanup.jmx</stringProp>
+            <stringProp name="TestPlan.comments">This is cleanup file</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run Setup If ${run_setup} == &apos;true&apos;" enabled="true">
+          <stringProp name="TestPlan.comments">		</stringProp>
+          <stringProp name="IfController.condition">&apos;${run_setup}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_and_pll_setup.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_and_pll_setup.jmx</stringProp>
+            <stringProp name="TestPlan.comments">This is setup file</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run Test Initialize If ${run_test} == &apos;true&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_and_pll_initialize.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_and_pll_initialize.jmx</stringProp>
+            <stringProp name="TestPlan.comments">This is part of the test but it will run first before main test started</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="LDI Tables Read Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that read data from LDI tables</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run LDI Read If ${run_test} == &apos;true&apos;  and ${ldi_read_clone} not &apos;0&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${ldi_read_clone}&apos; != &apos;0&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_tables_read.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_tables_read.jmx</stringProp>
+            <stringProp name="TestPlan.comments">select queries and read data from LDI tables</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="PLL Tables Read Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that read data from PLL tables</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run PLL Read If ${run_test} == &apos;true&apos;  and ${pll_read_clone} not &apos;0&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${pll_read_clone}&apos; != &apos;0&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="pll_tables_read.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">pll_tables_read.jmx</stringProp>
+            <stringProp name="TestPlan.comments">select queries and read data from PLL tables</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ALL Tables Read Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that read data from ALL tables</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run ALL Read If ${run_test} == &apos;true&apos;  and ${all_read_clone} not &apos;0&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${all_read_clone}&apos; != &apos;0&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="all_tables_read.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">all_tables_read.jmx</stringProp>
+            <stringProp name="TestPlan.comments">select queries and read data from ALL tables</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="LDI Tables Write Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that insert/update/delete/load on LDI tables</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run LDI Write If ${run_test} == &apos;true&apos;  and ${ldi_write} == &apos;true&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${ldi_write}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_tables_write.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_tables_write.jmx</stringProp>
+            <stringProp name="TestPlan.comments">Write queries insert/update/delete/load on LDI tables</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="PLL Tables Write Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that insert/update/delete/load on PLL tables</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run PLL Write If ${run_test} == &apos;true&apos;  and ${pll_write} == &apos;true&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${pll_write}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="pll_tables_write.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">pll_tables_write.jmx</stringProp>
+            <stringProp name="TestPlan.comments">Write queries insert/update/delete/load on PLL tables</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Validate Results Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">This is the workload that validate result of queries.</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${num_users}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1455739990000</longProp>
+        <longProp name="ThreadGroup.end_time">1455739990000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run Validate Results If ${run_test} == &apos;true&apos;  and ${validate_results} == &apos;true&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_test}&apos; == &apos;true&apos; &amp;&amp; &apos;${validate_results}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_and_pll_validate_result.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_and_pll_validate_result.jmx</stringProp>
+            <stringProp name="TestPlan.comments">This is to validate result of return queries.</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="postTest" enabled="true">
+        <stringProp name="TestPlan.comments">This postTest included post test activities and cleanup</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1457475925000</longProp>
+        <longProp name="ThreadGroup.end_time">1457475925000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </PostThreadGroup>
+      <hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Run Cleanup If ${run_cleanup} == &apos;true&apos;" enabled="true">
+          <stringProp name="IfController.condition">&apos;${run_cleanup}&apos; == &apos;true&apos;</stringProp>
+          <boolProp name="IfController.evaluateAll">true</boolProp>
+        </IfController>
+        <hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="ldi_and_pll_cleanup.jmx" enabled="true">
+            <stringProp name="IncludeController.includepath">ldi_and_pll_cleanup.jmx</stringProp>
+            <stringProp name="TestPlan.comments">This only run if cleanup is set to true</stringProp>
+          </IncludeController>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

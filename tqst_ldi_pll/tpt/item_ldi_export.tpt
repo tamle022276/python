@@ -1,0 +1,76 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA ITEM_LDI_SCHEMA
+   DESCRIPTION 'This is ITEM_LDI SCHEMA'
+   (
+      ITEM_ID VARCHAR(20),
+      ITEM_NAME VARCHAR(100),
+      ITEM_LEVEL BYTEINT,
+      ITEM_DESC VARCHAR(250),
+      ITEM_SUBCLASS_CD VARCHAR(50),
+      ITEM_TYPE_CD VARCHAR(50),
+      INVENTORY_IND CHAR(3),
+      VENDOR_PARTY_ID SMALLINT,
+      COMMODITY_CD VARCHAR(50),
+      BRAND_CD VARCHAR(50),
+      ITEM_AVAILABLE CHAR(1),
+      PRODUCT_IMEI BYTE(6)
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA ITEM_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'ITEM_LDI_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT
+                                   ITEM_ID,
+                                   ITEM_NAME,
+                                   ITEM_LEVEL,
+                                   ITEM_DESC,
+                                   ITEM_SUBCLASS_CD,
+                                   ITEM_TYPE_CD,
+                                   INVENTORY_IND,
+                                   VENDOR_PARTY_ID,
+                                   COMMODITY_CD,
+                                   BRAND_CD,
+                                   ITEM_AVAILABLE,
+                                   PRODUCT_IMEI 
+				   FROM SIT_LDI_PLL_STAGE.ITEM_LDI where  ITEM_AVAILABLE = ''''
+                                   and ITEM_LEVEL < 15
+                                   /* and ITEM_ID not in (select ITEM_ID from ITEM_INVENTORY_LDI)
+                                   and ITEM_ID not in (select ITEM_ID from ITEM_INVENTORY_PLAN_LDI)
+                                   and ITEM_ID not in (select RETURNED_ITEM_ID from RETURN_TRANSACTION_LINE_LDI)
+                                   and ITEM_ID not in (select ITEM_ID from SALES_TRANSACTION_LINE_PLL)
+                                   and ITEM_ID not in (select ITEM_ID from ITEM_PRICE_HISTORY) */
+                                  ;'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA ITEM_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'ITEM_LDI_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

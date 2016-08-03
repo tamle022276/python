@@ -1,0 +1,49 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA RETURN_REASON_LDI_SCHEMA
+   DESCRIPTION 'This is RETURN_REASON_LDI SCHEMA'
+   (
+      RETURN_REASON_CD VARCHAR(50),
+      RETURN_REASON_DESC VARCHAR(250)
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA RETURN_REASON_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'RETURN_REASON_LDI_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT
+                                   RETURN_REASON_CD,
+                                   RETURN_REASON_DESC
+				   FROM SIT_LDI_PLL_STAGE.RETURN_REASON_LDI;'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA RETURN_REASON_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'RETURN_REASON_LDI_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

@@ -1,0 +1,67 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA PARTY_SCHEMA
+   DESCRIPTION 'This is PARTY SCHEMA'
+   (
+      PARTY_ID VARCHAR(10),
+      PARTY_TYPE_CD CHAR(4),
+      PARTY_FIRSTNAME VARCHAR(20),
+      PARTY_LASTNAME VARCHAR(20),
+      PARTY_STREET_ADDRESS VARCHAR(50),
+      PARTY_CITY CHAR(30),
+      PARTY_STATE CHAR(2),
+      PARTY_ZIP CHAR(5),
+      PARTY_INFO_SOURCE_TYPE_CD CHAR(4),
+      PARTY_START_DT INTDATE,
+      PARTY_FIRST_PURCHASE_DT INTDATE
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA PARTY_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'PARTY_PLL_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT 
+                                   PARTY_ID,
+				   PARTY_TYPE_CD,
+				   PARTY_FIRSTNAME,
+				   PARTY_LASTNAME,
+				   PARTY_STREET_ADDRESS,
+				   PARTY_CITY,
+				   PARTY_STATE,
+				   PARTY_ZIP,
+				   PARTY_INFO_SOURCE_TYPE_CD,
+				   PARTY_START_DT,
+				   PARTY_FIRST_PURCHASE_DT
+				   FROM SIT_LDI_PLL_STAGE.PARTY_PLL where PARTY_STATE = ''N'';'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA PARTY_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'PARTY_PLL_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

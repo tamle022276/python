@@ -1,0 +1,85 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA SALES_TRANSACTION_PLL_SCHEMA
+   DESCRIPTION 'This is SALES_TRANSACTION_PLL SCHEMA'
+   (
+      SALES_TRAN_ID BIGINT,
+      VISIT_ID INTEGER,
+      TRAN_STATUS_CD CHAR(1),
+      REPORTED_AS_DTTM CHAR(32),
+      TRAN_TYPE_CD CHAR(1),
+      MKB_COST_AMT DECIMAL(18,4),
+      MKB_ITEM_QTY DECIMAL(18,4),
+      MKB_NUMBER_UNIQUE_ITEMS_QTY DECIMAL(18,4),
+      MKB_REV_AMT DECIMAL(18,4),
+      ASSOCIATE_PARTY_ID INTEGER,
+      TRAN_START_DTTM_DD CHAR(32),
+      TRAN_DATE INTDATE,
+      TRAN_END_DTTM_DD CHAR(26),
+      TRAN_END_HOUR INTEGER,
+      TRAN_END_MINUTE INTEGER,
+      REWARD_CD VARCHAR(10),
+      TRANS_YEAR CHAR(5),
+      TRAN_START_TM CHAR(15),
+      TRAN_END_TM CHAR(21),
+      PARTY_ID VARCHAR(10)
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA SALES_TRANSACTION_PLL_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'SALES_TRANSACTION_PLL_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT
+                                   SALES_TRAN_ID,
+                                   VISIT_ID,
+                                   TRAN_STATUS_CD,
+                                   REPORTED_AS_DTTM,
+                                   TRAN_TYPE_CD,
+                                   MKB_COST_AMT,
+                                   MKB_ITEM_QTY,
+                                   MKB_NUMBER_UNIQUE_ITEMS_QTY,
+                                   MKB_REV_AMT,
+                                   ASSOCIATE_PARTY_ID,
+                                   TRAN_START_DTTM_DD,
+                                   TRAN_DATE,
+                                   TRAN_END_DTTM_DD,
+                                   TRAN_END_HOUR,
+                                   TRAN_END_MINUTE,
+                                   REWARD_CD,
+                                   TRANS_YEAR,
+                                   TRAN_START_TM,
+                                   TRAN_END_TM,
+                                   PARTY_ID 
+                                   FROM SIT_LDI_PLL_STAGE.SALES_TRANSACTION_PLL where TRAN_DATE between ''1970-01-01'' and ''1980-01-01'';'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA SALES_TRANSACTION_PLL_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'SALES_TRANSACTION_PLL_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

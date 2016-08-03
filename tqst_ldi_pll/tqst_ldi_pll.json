@@ -1,0 +1,22 @@
+{"testname": "tqst_ldi_pll", "testtype": "jmeter", "hsn_required": "n", "phases": "test",
+	"parameters": [
+		{"name": "dbs_name", "randomizable": "false", "parmtype": "string", "default": "YOURdbsname"},
+		{"name": "run_test", "randomizable": "false", "parmtype": "bool", "default": "true"},
+		{"name": "run_setup", "randomizable": "false", "parmtype": "bool", "default": "true"},
+		{"name": "run_cleanup", "randomizable": "false", "parmtype": "bool", "default": "false"},
+		{"name": "run_iteration", "randomizable": "false", "parmtype": "int", "minvalue": "0", "maxvalue": "99999", "default": "1"},
+		{"name": "run_duration", "randomizable": "false", "parmtype": "int", "minvalue": "0", "maxvalue": "10080 ", "default": "0"},
+		{"name": "num_users", "randomizable": "true", "parmtype": "int", "minvalue": "1", "maxvalue": "3", "default": "1"},
+		{"name": "ldi_read_clone", "randomizable": "true", "parmtype": "int", "minvalue": "1", "maxvalue": "10", "default": "5"},
+		{"name": "pll_read_clone", "randomizable": "true", "parmtype": "int", "minvalue": "1", "maxvalue": "10", "default": "5"},
+		{"name": "all_read_clone", "randomizable": "true", "parmtype": "int", "minvalue": "1", "maxvalue": "10", "default": "5"},
+		{"name": "ldi_write", "randomizable": "true", "parmtype": "bool", "default": "true"},
+		{"name": "pll_write", "randomizable": "true", "parmtype": "bool", "default": "true"},
+		{"name": "validate_results", "randomizable": "true", "parmtype": "bool", "default": "true"},
+		{"name": "dbc_password", "randomizable": "false", "parmtype": "string", "default": "dbc"},
+		{"name": "node_password", "randomizable": "false", "parmtype": "string", "default": "Sit4me123!"},
+		{"name": "update_control_file", "randomizable": "false", "parmtype": "bool", "default": "false"},
+		{"name": "tpt_trace_level", "randomizable": "false", "parmtype": "string", "default": "none"},
+		{"name": "action_on_error", "randomizable": "false", "parmtype": "string", "default": "stoptestnow"}
+	]
+}

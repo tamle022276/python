@@ -1,0 +1,81 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA SALES_TRANSACTION_LINE_PLL_SCHEMA
+   DESCRIPTION 'This is SALES_TRANSACTION_LINE_PLL SCHEMA'
+   (
+      SALES_TRAN_ID BIGINT,
+      SALES_TRAN_LINE_NUM SMALLINT,
+      ITEM_ID VARCHAR(20),
+      ITEM_QTY NUMBER(5,0),
+      UNIT_SELLING_PRICE_AMT DECIMAL(8,4),
+      UNIT_COST_AMT DECIMAL(8,4),
+      TRAN_LINE_STATUS_CD CHAR(1),
+      SALES_TRAN_LINE_START_DTTM CHAR(26),
+      TRAN_LINE_SALES_TYPE_CD CHAR(2),
+      SALES_TRAN_LINE_END_DTTM CHAR(26),
+      TRAN_LINE_DATE INTDATE,
+      TX_TIME INTEGER,
+      LOCATION INTEGER,
+      LINE_RUN_DURATION_SECONDS CHAR(12),
+      LINE_RUN_DURATION_MINUTES CHAR(5),
+      LINE_RUN_DURATION_HOURS CHAR(5),
+      LINE_RUN_DURATION_DAYS CHAR(5),
+      BENEFIT_RATE FLOAT
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA SALES_TRANSACTION_LINE_PLL_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'SALES_TRANSACTION_LINE_PLL_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT
+                                   SALES_TRAN_ID,
+                                   SALES_TRAN_LINE_NUM,
+                                   ITEM_ID,
+                                   ITEM_QTY,
+                                   UNIT_SELLING_PRICE_AMT,
+                                   UNIT_COST_AMT,
+                                   TRAN_LINE_STATUS_CD,
+                                   SALES_TRAN_LINE_START_DTTM,
+                                   TRAN_LINE_SALES_TYPE_CD,
+                                   SALES_TRAN_LINE_END_DTTM,
+                                   TRAN_LINE_DATE,
+                                   TX_TIME,
+                                   LOCATION,
+                                   LINE_RUN_DURATION_SECONDS,
+                                   LINE_RUN_DURATION_MINUTES,
+                                   LINE_RUN_DURATION_HOURS,
+                                   LINE_RUN_DURATION_DAYS,
+                                   BENEFIT_RATE 
+                                   FROM SIT_LDI_PLL_STAGE.SALES_TRANSACTION_LINE_PLL where LOCATION > 480;'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA SALES_TRANSACTION_LINE_PLL_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'SALES_TRANSACTION_LINE_PLL_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);

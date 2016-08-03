@@ -1,0 +1,75 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA RETURN_TRANSACTION_LINE_LDI_SCHEMA
+   DESCRIPTION 'This is RETURN_TRANSACTION_LINE_LDI SCHEMA'
+   (
+      SALES_TRAN_ID BIGINT,
+      RETURN_TRAN_LINE_NUM VARCHAR(3),
+      RETURNED_ITEM_ID VARCHAR(20),
+      RETURN_ITEM_QTY DECIMAL(18,4),
+      UNIT_REFUND_AMT DECIMAL(18,4),
+      ORIGINAL_SALES_TRAN_LINE_NUM VARCHAR(4),
+      RETURN_TRAN_LINE_START_DTTM CHAR(26),
+      RETURN_TRAN_LINE_END_DTTM CHAR(26),
+      TRAN_LINE_STATUS_CD CHAR(1),
+      RETURN_REASON_CD VARCHAR(50),
+      LOCATION_ID INTEGER,
+      RETURN_ITEM_DURATION_1 CHAR(11),
+      RETURN_ITEM_DURATION_2 CHAR(8),
+      RETURN_ITEM_DURATION_3 CHAR(21),
+      ORIGINAL_SALES_TRAN_ID BIGINT
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA RETURN_TRANSACTION_LINE_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'RETURN_TRANSACTION_LINE_LDI_exportoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR SelectStmt        = 'SELECT
+                                   SALES_TRAN_ID,
+                                   RETURN_TRAN_LINE_NUM,
+                                   RETURNED_ITEM_ID,
+                                   RETURN_ITEM_QTY,
+                                   UNIT_REFUND_AMT,
+                                   ORIGINAL_SALES_TRAN_LINE_NUM,
+                                   RETURN_TRAN_LINE_START_DTTM,
+                                   RETURN_TRAN_LINE_END_DTTM,
+                                   TRAN_LINE_STATUS_CD,
+                                   RETURN_REASON_CD,
+                                   LOCATION_ID,
+                                   RETURN_ITEM_DURATION_1,
+                                   RETURN_ITEM_DURATION_2,
+                                   RETURN_ITEM_DURATION_3,
+                                   ORIGINAL_SALES_TRAN_ID 
+                                   FROM SIT_LDI_PLL_STAGE.RETURN_TRANSACTION_LINE_LDI where TRAN_LINE_STATUS_CD in (''A'', ''B'');'
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA RETURN_TRANSACTION_LINE_LDI_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'RETURN_TRANSACTION_LINE_LDI_dataconnoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = @DirectoryPath
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER)
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR);
+   );
+);
