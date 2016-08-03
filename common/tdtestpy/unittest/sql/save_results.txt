@@ -1,0 +1,3 @@
+select * from dbc.dbcinfo;
+select current_timestamp;
+select InfoKey from dbc.dbcinfo;

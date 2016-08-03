@@ -1,0 +1,14 @@
+create user tdtestpy_unit_test_tpt as perm = 1000000 password = tdtestpy_unit_test_tpt;
+
+database tdtestpy_unit_test_tpt;
+
+create table test1 (c1 int, c2 decimal(10,2), c3 varchar(20));
+
+INSERT INTO test1 VALUES (1, 11.30, 'a');
+INSERT INTO test1 VALUES (2, 12.40, 'b');
+INSERT INTO test1 VALUES (3, 13.50, 'c');
+INSERT INTO test1 VALUES (4, 14.60, 'd');
+INSERT INTO test1 VALUES (5, 15.70, 'e');
+
+
+create table test2 (c1 int, c2 decimal(10,2), c3 varchar(20));

@@ -1,0 +1,5 @@
+select * from dbc.dbcinfo;
+select current_timestamp;
+select * from dbc.dbcinf;
+select current_timestam;
+logoff;

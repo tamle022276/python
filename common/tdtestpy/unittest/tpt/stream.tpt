@@ -1,0 +1,80 @@
+DEFINE JOB LOAD_DATA_USING_STREAM_OPERATOR
+DESCRIPTION 'LOAD DATA USING STREAM OPERATOR'
+(
+   DEFINE SCHEMA TEST2_SCHEMA
+   DESCRIPTION 'THIS IS TEST2 SCHEMA'
+   (
+      C1 INTEGER,
+      C2 DECIMAL(10,2),
+      C3 VARCHAR(20)
+   );
+
+   DEFINE OPERATOR DDL_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DDL OPERATOR'
+   TYPE DDL
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel     = @tracelevel,
+      VARCHAR PrivateLogName = 'TEST2_ddloper_log',
+      VARCHAR TdpId          = @TdpId,
+      VARCHAR UserName       = @UserName,
+      VARCHAR UserPassword   = @UserPassword,
+      VARCHAR ErrorList      = '3807'
+   );
+
+   DEFINE OPERATOR STREAM_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER STREAM OPERATOR'
+   TYPE STREAM
+   SCHEMA TEST2_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'TEST2_streamoper_privatelog',
+      VARCHAR TdpId             = @TdpId,
+      VARCHAR UserName          = @UserName,
+      VARCHAR UserPassword      = @UserPassword,
+      VARCHAR ErrorTable        = 'TEST2_STREAMOPER_ERRTABLE',
+      VARCHAR LogTable          = 'TEST2_STREAMOPER_LOGTABLE',
+      VARCHAR PackMaximum       = 'No',
+      INTEGER Pack              = 2000,
+      INTEGER MaxSessions       = 5,
+      INTEGER MinSessions       = 1
+   );
+
+   DEFINE OPERATOR FILE_READER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR PRODUCER
+   SCHEMA TEST2_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = @tracelevel,
+      VARCHAR PrivateLogName    = 'TEST2_datanoper_privatelog',
+      VARCHAR FileName          = @FileName,
+      VARCHAR DirectoryPath     = @DirectoryPath,
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Read',
+      VARCHAR Format            = 'formatted'
+   );
+
+   STEP step_cleanup
+   (
+      APPLY
+      ('delete test2;'),
+      ('DROP TABLE TEST2_STREAMOPER_ERRTABLE;'),
+      ('DROP TABLE TEST2_STREAMOPER_LOGTABLE;')
+      TO OPERATOR (DDL_OPERATOR);
+   );
+
+   STEP step_stream_data
+   (
+      APPLY 
+      ('INSERT INTO TEST2 
+        (C1, C2, C3)
+        VALUES
+        (:C1, :C2, :C3);')
+      
+      TO OPERATOR (STREAM_OPERATOR)
+
+      SELECT * FROM OPERATOR (FILE_READER);
+   );
+);
