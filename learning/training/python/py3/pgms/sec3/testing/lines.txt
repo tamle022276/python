@@ -1,0 +1,12 @@
+"""
+>>> lines = ["this is line 1", "this is line 2"]
+>>> for line in lines:
+...     print(line)
+...     print()
+... 
+this is line 1
+<BLANKLINE>
+this is line 2
+<BLANKLINE>
+>>> 
+"""

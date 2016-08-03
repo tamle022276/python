@@ -1,0 +1,22 @@
+.logon hela/dbc,dbc;
+
+.SET ERRORLEVEL (0000) SEVERITY 0
+
+select * from dbc.dbcinfo;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select current_timestamp;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select * from dbc.dbcinf;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select current_timestam;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+.SET ERRORLEVEL (whatever) SEVERITY 0
+
+.label finish
+logoff;
+
+

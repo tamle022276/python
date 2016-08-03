@@ -1,0 +1,38 @@
+create user python_test as perm = 1000000 password = python_test;
+
+begin query logging on python_test;
+
+grant all on dbc to python_test with grant option;
+
+database python_test;
+
+create table test1(c1 int, c2 decimal(10,2), c3 varchar(20));
+
+create table test2(c1 int, c2 decimal(10,2), c3 varchar(20));
+
+
+INSERT INTO test1 VALUES (1, 11.30, 'a');
+INSERT INTO test1 VALUES (2, 12.40, 'b');
+INSERT INTO test1 VALUES (3, 13.50, 'c');
+INSERT INTO test1 VALUES (4, 14.60, 'd');
+INSERT INTO test1 VALUES (5, 15.70, 'e');
+
+
+INSERT INTO test2 VALUES (1, 11.30, 'a');
+INSERT INTO test2 VALUES (2, 12.40, 'b');
+INSERT INTO test2 VALUES (3, 13.50, 'c');
+INSERT INTO test2 VALUES (4, 14.60, 'd');
+INSERT INTO test2 VALUES (5, 15.70, 'e');
+
+
+create join index j1 as select c1 from test1;
+
+create join index j2 as select c1 from test2;
+
+
+select t1.c1, t1.c2, t1.c3 from test1 t1, test2 t2
+where t1.c1 = t2.c1;
+
+select * from test1
+where c1 in (select c1 from test2);
+

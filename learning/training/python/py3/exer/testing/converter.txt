@@ -1,0 +1,11 @@
+"""                 # start of docstring
+>>> ctemp = 23      # celsius temp
+>>> ftemp =         # your code here...
+>>> ftemp
+73.4
+>>> ftemp = 23      # fahrenheit temp
+>>> ctemp =         # your code here...
+>>> ctemp
+-5.0
+>>>
+"""                 # end of docstring

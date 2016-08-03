@@ -1,0 +1,11 @@
+"""                 # start of docstring
+>>> ctemp =23
+>>> ftemp = float(9) / float(5) * ctemp + 32
+>>> ftemp
+73.400000000000006
+>>> ftemp = 23
+>>> ctemp = (ftemp-32) * float(5)/ float(9)
+>>> ctemp
+-5.0
+>>>
+"""                 # end of docstring

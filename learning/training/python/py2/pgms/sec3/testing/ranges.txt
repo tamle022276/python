@@ -1,0 +1,26 @@
+"""
+>>> for i in range(5):
+...     print i,
+... 
+0 1 2 3 4
+>>>
+>>> for i in range(-5, 5):
+...     print i,
+... 
+-5 -4 -3 -2 -1 0 1 2 3 4
+>>> for i in range(5, -5, -1):
+...     print i,
+... 
+5 4 3 2 1 0 -1 -2 -3 -4
+>>> s = "characters"
+>>> for i in range(0, len(s), 2): print s[i],
+... 
+c a a t r
+>>> L1 = [1, 2, 3, 4, 5]
+>>> for i in range(len(L1)):
+...     L1[i] += 1
+... 
+>>> L1
+[2, 3, 4, 5, 6]
+>>>
+"""

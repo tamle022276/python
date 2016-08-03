@@ -1,0 +1,23 @@
+2016-05-03 15:44:27,833 - teradata.udaexec - INFO - Creating connection: {'method': 'odbc', 'username': 'dbc', 'system': 'hela', 'password': 'XXXXXX'}
+2016-05-03 15:44:27,849 - teradata.udaexec - ERROR - Unable to create connection: {'method': 'odbc', 'username': 'dbc', 'system': 'hela', 'password': 'XXXXXX'}
+Traceback (most recent call last):
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\udaexec.py", line 172, in connect
+    **args))
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 374, in __init__
+    checkStatus(rc, hDbc=self.hDbc, method="SQLDriverConnectW")
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 206, in checkStatus
+    raise DatabaseError(i[2], u"[{}] {}".format(i[0], msg), i[0])
+teradata.api.DatabaseError: (0, '[HY000] [Teradata][ODBC Teradata Driver] Loading the Teradata ICU Library Failed. Error is: 126, The driver returned invalid (or failed to return) SQL_DRIVER_ODBC_VER: 03.80')
+2016-05-03 15:44:27,849 - root - ERROR - Traceback (most recent call last):
+  File "test_python.py", line 201, in <module>
+    with udaExec.connect(method=con_method, system="hela", username="dbc", password="dbc") as dbc_con:
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\udaexec.py", line 172, in connect
+    **args))
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 374, in __init__
+    checkStatus(rc, hDbc=self.hDbc, method="SQLDriverConnectW")
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 206, in checkStatus
+    raise DatabaseError(i[2], u"[{}] {}".format(i[0], msg), i[0])
+teradata.api.DatabaseError: (0, '[HY000] [Teradata][ODBC Teradata Driver] Loading the Teradata ICU Library Failed. Error is: 126, The driver returned invalid (or failed to return) SQL_DRIVER_ODBC_VER: 03.80')
+
+2016-05-03 15:44:27,849 - root - INFO - ================== End: Test Failed!] ==================
+2016-05-03 15:44:27,849 - teradata.udaexec - INFO - UdaExec exiting.

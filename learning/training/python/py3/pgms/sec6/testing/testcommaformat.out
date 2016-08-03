@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: testEqual (__main__.TestCommaFormat)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "./testcommaformat.py", line 12, in testEqual
+    self.assertEqual("1,234,567", format("1234567"))
+AssertionError: '1,234,567' != '1234,567'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

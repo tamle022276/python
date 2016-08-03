@@ -1,0 +1,91 @@
+DEFINE JOB LOAD_DATA_USING_STREAM_OPERATOR
+DESCRIPTION 'LOAD DATA USING STREAM OPERATOR'
+(
+   DEFINE SCHEMA [% target_table_pi %][% clone_id %]_SCHEMA
+   DESCRIPTION 'THIS IS [% target_table_pi %][% clone_id %] SCHEMA'
+   (
+      RETURN_TRAN_ID BIGINT,
+      RETURN_TRAN_LINE_NUM VARCHAR(3),
+      RETURNED_ITEM_ID VARCHAR(20),
+      RETURN_ITEM_QTY INTEGER,
+      UNIT_REFUND_AMT DECIMAL(18,2),
+      ORIGINAL_SALES_TRAN_ID BIGINT,
+      ORIGINAL_SALES_TRAN_LINE_NUM SMALLINT,
+      RETURN_TRAN_LINE_START_DTTM CHAR(26),
+      RETURN_TRAN_LINE_END_DTTM CHAR(26),
+      TRAN_LINE_STATUS_CD CHAR(1),
+      RETURN_REASON_CD VARCHAR(50),
+      LOCATION_ID INTEGER,
+      RETURN_ITEM_DURATION_1 CHAR(9),
+      RETURN_ITEM_DURATION_2 CHAR(6),
+      RETURN_ITEM_DURATION_3 CHAR(19)
+   );
+
+   DEFINE OPERATOR DDL_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DDL OPERATOR'
+   TYPE DDL
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel     = 'none',
+      VARCHAR PrivateLogName = '[% target_table_pi %][% clone_id %]_ddloper_log',
+      VARCHAR TdpId          = 'role:dbs_server',
+      VARCHAR UserName       = '[% etl_user %]',
+      VARCHAR UserPassword   = '[% etl_user %]',
+      VARCHAR ErrorList      = '3807'
+   );
+
+   DEFINE OPERATOR STREAM_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER STREAM OPERATOR'
+   TYPE STREAM
+   SCHEMA [% target_table_pi %][% clone_id %]_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = 'none',
+      VARCHAR PrivateLogName    = '[% target_table_pi %][% clone_id %]_streamoper_privatelog',
+      VARCHAR TdpId             = 'role:dbs_server',
+      VARCHAR UserName          = '[% etl_user %]',
+      VARCHAR UserPassword      = '[% etl_user %]',
+      VARCHAR ErrorTable        = '[% target_table_pi %][% clone_id %]_STREAMOPER_ERRTABLE',
+      VARCHAR LogTable          = '[% target_table_pi %][% clone_id %]_STREAMOPER_LOGTABLE',
+      VARCHAR PackMaximum       = 'No',
+      INTEGER Pack              = 1800,
+      INTEGER MaxSessions       = 4,
+      INTEGER MinSessions       = 1
+   );
+
+   DEFINE OPERATOR FILE_READER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR PRODUCER
+   SCHEMA [% target_table_pi %][% clone_id %]_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = 'none',
+      VARCHAR PrivateLogName    = '[% target_table_pi %][% clone_id %]_dataconnoper_privatelog',
+      VARCHAR FileName          = 'returntranlinepipe',
+      VARCHAR DirectoryPath     = '/local/datafiles/sit_etl/role:dbs_server',
+      VARCHAR AccessModuleName  = 'np_axsmod.so',
+      VARCHAR AccessModuleInitStr = 'ld=. fd=.',
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Read',
+      VARCHAR Format            = 'formatted'
+   );
+
+   STEP step_cleanup
+   (
+      APPLY
+      ('delete from [% target_database %].[% target_table_pi %][% clone_id %];'),
+      ('DROP TABLE [% target_table_pi %][% clone_id %]_STREAMOPER_ERRTABLE;'),
+      ('DROP TABLE [% target_table_pi %][% clone_id %]_STREAMOPER_LOGTABLE;')
+      TO OPERATOR (DDL_OPERATOR);
+   );
+
+   STEP step_load_data
+   (
+      APPLY 
+      ('INSERT INTO [% target_database %].[% target_table_pi %][% clone_id %] (:RETURN_TRAN_ID, :RETURN_TRAN_LINE_NUM, :RETURNED_ITEM_ID, :RETURN_ITEM_QTY, :UNIT_REFUND_AMT, :ORIGINAL_SALES_TRAN_ID, :ORIGINAL_SALES_TRAN_LINE_NUM, :RETURN_TRAN_LINE_START_DTTM, :RETURN_TRAN_LINE_END_DTTM, :TRAN_LINE_STATUS_CD, :RETURN_REASON_CD, :LOCATION_ID, :RETURN_ITEM_DURATION_1, :RETURN_ITEM_DURATION_2, :RETURN_ITEM_DURATION_3);')
+      
+      TO OPERATOR (STREAM_OPERATOR [2])
+
+      SELECT * FROM OPERATOR (FILE_READER [1]);
+   );
+);

@@ -1,0 +1,15 @@
+"""
+>>> from temperature import *
+>>> temp = 40
+>>> print("celsius to farenheit = %g " %farenheit(temp))
+celsius to farenheit = 104 
+>>> print("farenheit to celsius = %g"  %celsius(temp))
+farenheit to celsius = 4.44444
+
+>>> temp = -40
+>>> print("celsius to farenheit = %g " %farenheit(temp))
+celsius to farenheit = -40 
+>>> print("farenheit to celsius = %g"  %celsius(temp))
+farenheit to celsius = -40
+>>>
+"""

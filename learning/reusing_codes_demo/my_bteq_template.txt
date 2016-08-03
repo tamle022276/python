@@ -1,0 +1,19 @@
+.SET ERRORLEVEL (whatever) SEVERITY 0
+
+select * from dbc.dbcinfo;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select current_timestamp;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select * from dbc.dbcinf;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+select current_timestam;
+.IF ERRORLEVEL <> 0 THEN .GoTo finish
+
+
+.label finish
+logoff;
+
+

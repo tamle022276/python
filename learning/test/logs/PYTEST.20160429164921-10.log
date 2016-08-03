@@ -1,0 +1,75 @@
+2016-04-29 16:49:21,201 - teradata.udaexec - INFO - Initializing UdaExec...
+2016-04-29 16:49:21,201 - teradata.udaexec - INFO - Reading config files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+2016-04-29 16:49:21,201 - teradata.udaexec - INFO - Found run number file: "C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\.runNumber"
+2016-04-29 16:49:21,201 - teradata.udaexec - INFO - Cleaning up log files older than 90 days.
+2016-04-29 16:49:21,201 - teradata.udaexec - INFO - Removed 0 log files.
+2016-04-29 16:49:21,217 - teradata.udaexec - INFO - Checkpoint file not found: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\PYTEST.checkpoint
+2016-04-29 16:49:21,217 - teradata.udaexec - INFO - No previous checkpoint found, executing from beginning...
+2016-04-29 16:49:21,217 - teradata.udaexec - INFO - Execution Details:
+/********************************************************************************
+ * Application Name: PYTEST
+ *          Version: 1.0
+ *       Run Number: 20160429164921-10
+ *             Host: WUSTL151006-357
+ *         Platform: Windows-7-6.1.7601-SP1
+ *          OS User: tl151006
+ *   Python Version: 3.5.0
+ *  Python Compiler: MSC v.1900 64 bit (AMD64)
+ *     Python Build: ('v3.5.0:374f501f4567', 'Sep 13 2015 02:27:37')
+ *  UdaExec Version: 15.10.0.15
+ *     Program Name: test_python.py
+ *      Working Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test
+ *          Log Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs
+ *         Log File: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160429164921-10.log
+ *     Config Files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+ *      Query Bands: ApplicationName=PYTEST;Version=1.0;JobID=20160429164921-10;ClientUser=tl151006;Production=False;udaAppLogFile=C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160429164921-10.log;UtilityName=PyTd;UtilityVersion=15.10.0.15
+********************************************************************************/
+2016-04-29 16:49:21,217 - teradata.udaexec - INFO - Creating connection: {'username': 'dbc', 'method': 'odbc', 'system': 'monopoly', 'password': 'XXXXXX'}
+2016-04-29 16:49:32,081 - teradata.udaexec - INFO - Connection successful. Duration: 10.865 seconds. Details: {'username': 'dbc', 'method': 'odbc', 'system': 'monopoly', 'password': 'XXXXXX'}
+2016-04-29 16:49:33,579 - teradata.udaexec - INFO - Query Successful. Duration: 1.498 seconds, Rows: 44, Query: select TableName, TableKind from DBC.Tables where DatabaseName = 'sit_pdm' and TableKind = 'T'
+2016-04-29 16:49:34,125 - teradata.udaexec - INFO - Query Successful. Duration: 0.546 seconds, Rows: 1, Query: show table sit_pdm.TRAIT
+2016-04-29 16:49:34,422 - teradata.udaexec - INFO - Query Successful. Duration: 0.296 seconds, Rows: 1, Query: show table sit_pdm.POSITION_TYPE
+2016-04-29 16:49:35,202 - teradata.udaexec - INFO - Query Successful. Duration: 0.780 seconds, Rows: 1, Query: show table sit_pdm.PARTY
+2016-04-29 16:49:36,262 - teradata.udaexec - INFO - Query Successful. Duration: 1.061 seconds, Rows: 1, Query: show table sit_pdm.ITEM_INVENTORY
+2016-04-29 16:49:36,699 - teradata.udaexec - INFO - Query Successful. Duration: 0.437 seconds, Rows: 1, Query: show table sit_pdm.RETURN_REASON
+2016-04-29 16:49:36,762 - teradata.udaexec - INFO - Query Successful. Duration: 0.062 seconds, Rows: 1, Query: show table sit_pdm.ITEM_INVENTORY_PLAN
+2016-04-29 16:49:37,543 - teradata.udaexec - INFO - Query Successful. Duration: 0.765 seconds, Rows: 1, Query: show table sit_pdm.LOCATION_PLAN
+2016-04-29 16:49:37,933 - teradata.udaexec - INFO - Query Successful. Duration: 0.374 seconds, Rows: 1, Query: show table sit_pdm.ASSOCIATE_BENEFIT_EXPENSE
+2016-04-29 16:49:38,371 - teradata.udaexec - INFO - Query Successful. Duration: 0.439 seconds, Rows: 1, Query: show table sit_pdm.ALL_DIVISIONS
+2016-04-29 16:49:39,058 - teradata.udaexec - INFO - Query Successful. Duration: 0.686 seconds, Rows: 1, Query: show table sit_pdm.BRAND
+2016-04-29 16:49:40,165 - teradata.udaexec - INFO - Query Successful. Duration: 1.108 seconds, Rows: 1, Query: show table sit_pdm.DISTRICT
+2016-04-29 16:49:40,493 - teradata.udaexec - INFO - Query Successful. Duration: 0.312 seconds, Rows: 1, Query: show table sit_pdm.DIVISION
+2016-04-29 16:49:40,899 - teradata.udaexec - INFO - Query Successful. Duration: 0.406 seconds, Rows: 1, Query: show table sit_pdm.LABOR_PLAN
+2016-04-29 16:49:41,523 - teradata.udaexec - INFO - Query Successful. Duration: 0.624 seconds, Rows: 1, Query: show table sit_pdm.RETURN_TRANSACTION_LINE
+2016-04-29 16:49:41,585 - teradata.udaexec - INFO - Query Successful. Duration: 0.062 seconds, Rows: 1, Query: show table sit_pdm.COST_TYPE
+2016-04-29 16:49:41,944 - teradata.udaexec - INFO - Query Successful. Duration: 0.359 seconds, Rows: 1, Query: show table sit_pdm.ITEM_STORE_SOLD
+2016-04-29 16:49:42,833 - teradata.udaexec - INFO - Query Successful. Duration: 0.874 seconds, Rows: 1, Query: show table sit_pdm.ITEM_PRICE_HISTORY
+2016-04-29 16:49:42,973 - teradata.udaexec - INFO - Query Successful. Duration: 0.140 seconds, Rows: 1, Query: show table sit_pdm.PROMO_TYPE
+2016-04-29 16:49:43,254 - teradata.udaexec - INFO - Query Successful. Duration: 0.281 seconds, Rows: 1, Query: show table sit_pdm.LOCATION
+2016-04-29 16:49:43,675 - teradata.udaexec - INFO - Query Successful. Duration: 0.421 seconds, Rows: 1, Query: show table sit_pdm.JOB_CLASSIFICATION
+2016-04-29 16:49:43,753 - teradata.udaexec - INFO - Query Successful. Duration: 0.078 seconds, Rows: 1, Query: show table sit_pdm.PRICE_CHANGE_REASON
+2016-04-29 16:49:44,253 - teradata.udaexec - INFO - Query Successful. Duration: 0.499 seconds, Rows: 1, Query: show table sit_pdm.ALERT_EMAILS
+2016-04-29 16:49:44,455 - teradata.udaexec - INFO - Query Successful. Duration: 0.203 seconds, Rows: 1, Query: show table sit_pdm.COST
+2016-04-29 16:49:44,533 - teradata.udaexec - INFO - Query Successful. Duration: 0.078 seconds, Rows: 1, Query: show table sit_pdm.ITEM_TRAIT
+2016-04-29 16:49:45,001 - teradata.udaexec - INFO - Query Successful. Duration: 0.452 seconds, Rows: 1, Query: show table sit_pdm.DEMOGRAPHICS
+2016-04-29 16:49:45,547 - teradata.udaexec - INFO - Query Successful. Duration: 0.530 seconds, Rows: 1, Query: show table sit_pdm.REGION
+2016-04-29 16:49:45,735 - teradata.udaexec - INFO - Query Successful. Duration: 0.187 seconds, Rows: 1, Query: show table sit_pdm.TRAIT_GROUP
+2016-04-29 16:49:45,891 - teradata.udaexec - INFO - Query Successful. Duration: 0.156 seconds, Rows: 1, Query: show table sit_pdm.WORK_SHIFT
+2016-04-29 16:49:46,156 - teradata.udaexec - INFO - Query Successful. Duration: 0.265 seconds, Rows: 1, Query: show table sit_pdm.TRAIT_VALUE
+2016-04-29 16:49:47,014 - teradata.udaexec - INFO - Query Successful. Duration: 0.858 seconds, Rows: 1, Query: show table sit_pdm.SALES_TRANSACTION
+2016-04-29 16:49:47,702 - teradata.udaexec - INFO - Query Successful. Duration: 0.688 seconds, Rows: 1, Query: show table sit_pdm.CURRENT_PROMO
+2016-04-29 16:49:48,342 - teradata.udaexec - INFO - Query Successful. Duration: 0.640 seconds, Rows: 1, Query: show table sit_pdm.ITEM
+2016-04-29 16:49:48,420 - teradata.udaexec - INFO - Query Successful. Duration: 0.078 seconds, Rows: 1, Query: show table sit_pdm.CHANNEL
+2016-04-29 16:49:48,435 - teradata.udaexec - INFO - Query Successful. Duration: 0.016 seconds, Rows: 1, Query: show table sit_pdm.ASSOCIATE_EXPENSE_TYPE
+2016-04-29 16:49:48,796 - teradata.udaexec - INFO - Query Successful. Duration: 0.361 seconds, Rows: 1, Query: show table sit_pdm.ASSOCIATE_LABOR_EXPENSE
+2016-04-29 16:49:48,921 - teradata.udaexec - INFO - Query Successful. Duration: 0.125 seconds, Rows: 1, Query: show table sit_pdm.BRAND_OWNER_ORG
+2016-04-29 16:49:49,249 - teradata.udaexec - INFO - Query Successful. Duration: 0.328 seconds, Rows: 1, Query: show table sit_pdm.ITEM_DIVISION
+2016-04-29 16:49:49,873 - teradata.udaexec - INFO - Query Successful. Duration: 0.608 seconds, Rows: 1, Query: show table sit_pdm.SALES_TRANSACTION_LINE
+2016-04-29 16:49:50,840 - teradata.udaexec - INFO - Query Successful. Duration: 0.967 seconds, Rows: 1, Query: show table sit_pdm.ASSOCIATE
+2016-04-29 16:49:50,966 - teradata.udaexec - INFO - Query Successful. Duration: 0.110 seconds, Rows: 1, Query: show table sit_pdm.POSITION_GRADE
+2016-04-29 16:49:51,029 - teradata.udaexec - INFO - Query Successful. Duration: 0.063 seconds, Rows: 1, Query: show table sit_pdm.LOCATION_TYPE
+2016-04-29 16:49:52,496 - teradata.udaexec - INFO - Query Successful. Duration: 1.466 seconds, Rows: 1, Query: show table sit_pdm.ASSOCIATE_POSITION
+2016-04-29 16:49:52,745 - teradata.udaexec - INFO - Query Successful. Duration: 0.250 seconds, Rows: 1, Query: show table sit_pdm.ALL_ITEM_DIVISIONS
+2016-04-29 16:49:53,291 - teradata.udaexec - INFO - Query Successful. Duration: 0.546 seconds, Rows: 1, Query: show table sit_pdm.OFFERS_20050701
+2016-04-29 16:49:59,299 - root - INFO - ================= End: Test Success!] =================
+2016-04-29 16:49:59,299 - teradata.udaexec - INFO - UdaExec exiting.

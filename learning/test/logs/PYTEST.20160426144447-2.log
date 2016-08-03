@@ -1,0 +1,63 @@
+2016-04-26 14:44:47,890 - teradata.udaexec - INFO - Initializing UdaExec...
+2016-04-26 14:44:47,890 - teradata.udaexec - INFO - Reading config files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+2016-04-26 14:44:47,890 - teradata.udaexec - INFO - Found run number file: "C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\.runNumber"
+2016-04-26 14:44:47,891 - teradata.udaexec - INFO - Cleaning up log files older than 90 days.
+2016-04-26 14:44:47,891 - teradata.udaexec - INFO - Removed 0 log files.
+2016-04-26 14:44:47,894 - teradata.udaexec - INFO - Checkpoint file not found: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\PYTEST.checkpoint
+2016-04-26 14:44:47,894 - teradata.udaexec - INFO - No previous checkpoint found, executing from beginning...
+2016-04-26 14:44:47,894 - teradata.udaexec - INFO - Execution Details:
+/********************************************************************************
+ * Application Name: PYTEST
+ *          Version: 1.0
+ *       Run Number: 20160426144447-2
+ *             Host: WUSTL151006-357
+ *         Platform: Windows-7-6.1.7601-SP1
+ *          OS User: tl151006
+ *   Python Version: 3.5.0
+ *  Python Compiler: MSC v.1900 64 bit (AMD64)
+ *     Python Build: ('v3.5.0:374f501f4567', 'Sep 13 2015 02:27:37')
+ *  UdaExec Version: 15.10.0.15
+ *     Program Name: test_python.py
+ *      Working Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test
+ *          Log Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs
+ *         Log File: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160426144447-2.log
+ *     Config Files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+ *      Query Bands: ApplicationName=PYTEST;Version=1.0;JobID=20160426144447-2;ClientUser=tl151006;Production=False;udaAppLogFile=C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160426144447-2.log;UtilityName=PyTd;UtilityVersion=15.10.0.15
+********************************************************************************/
+2016-04-26 14:44:47,898 - teradata.udaexec - INFO - Creating connection: {'method': 'odbc', 'password': 'XXXXXX', 'username': 'dbc', 'system': 'hela'}
+2016-04-26 14:44:48,380 - teradata.udaexec - INFO - Connection successful. Duration: 0.482 seconds. Details: {'method': 'odbc', 'password': 'XXXXXX', 'username': 'dbc', 'system': 'hela'}
+2016-04-26 14:44:48,380 - root - INFO - ================== Test Start ==================
+2016-04-26 14:44:48,381 - root - INFO - Drop user
+2016-04-26 14:44:48,706 - teradata.udaexec - INFO - Query Successful. Duration: 0.324 seconds, Rows: 0, Query: select UserName from dbc.users where UserName = 'python_unit_test'
+2016-04-26 14:44:48,709 - root - INFO - Database/user python_unit_test name does not exist
+2016-04-26 14:44:48,710 - root - INFO - Create user
+2016-04-26 14:44:49,105 - teradata.udaexec - INFO - Query Successful. Duration: 0.388 seconds, Rows: 3, Query: create user python_unit_test as perm = 1000000 password = python_unit_test
+2016-04-26 14:44:49,171 - teradata.udaexec - INFO - Query Successful. Duration: 0.066 seconds, Rows: 1, Query: begin query logging on python_unit_test
+2016-04-26 14:44:49,245 - teradata.udaexec - INFO - Query Successful. Duration: 0.073 seconds, Rows: 1, Query: grant all on dbc to python_unit_test with grant option
+2016-04-26 14:44:49,294 - teradata.udaexec - INFO - Query Successful. Duration: 0.048 seconds, Rows: 1, Query: database python_unit_test
+2016-04-26 14:44:49,617 - teradata.udaexec - INFO - Query Successful. Duration: 0.322 seconds, Rows: 0, Query: create table test1(c1 int, c2 decimal(10,2), c3 varchar(20))
+2016-04-26 14:44:49,708 - teradata.udaexec - INFO - Query Successful. Duration: 0.090 seconds, Rows: 0, Query: create table test2(c1 int, c2 decimal(10,2), c3 varchar(20))
+2016-04-26 14:44:49,718 - teradata.udaexec - INFO - Query Successful. Duration: 0.009 seconds, Rows: 1, Query: INSERT INTO test1 VALUES (1, 11.30, 'a')
+2016-04-26 14:44:49,727 - teradata.udaexec - INFO - Query Successful. Duration: 0.008 seconds, Rows: 1, Query: INSERT INTO test1 VALUES (2, 12.40, 'b')
+2016-04-26 14:44:49,735 - teradata.udaexec - INFO - Query Successful. Duration: 0.007 seconds, Rows: 1, Query: INSERT INTO test1 VALUES (3, 13.50, 'c')
+2016-04-26 14:44:49,744 - teradata.udaexec - INFO - Query Successful. Duration: 0.008 seconds, Rows: 1, Query: INSERT INTO test1 VALUES (4, 14.60, 'd')
+2016-04-26 14:44:49,752 - teradata.udaexec - INFO - Query Successful. Duration: 0.007 seconds, Rows: 1, Query: INSERT INTO test1 VALUES (5, 15.70, 'e')
+2016-04-26 14:44:49,760 - teradata.udaexec - INFO - Query Successful. Duration: 0.007 seconds, Rows: 1, Query: INSERT INTO test2 VALUES (1, 11.30, 'a')
+2016-04-26 14:44:49,768 - teradata.udaexec - INFO - Query Successful. Duration: 0.007 seconds, Rows: 1, Query: INSERT INTO test2 VALUES (2, 12.40, 'b')
+2016-04-26 14:44:49,776 - teradata.udaexec - INFO - Query Successful. Duration: 0.008 seconds, Rows: 1, Query: INSERT INTO test2 VALUES (3, 13.50, 'c')
+2016-04-26 14:44:49,784 - teradata.udaexec - INFO - Query Successful. Duration: 0.008 seconds, Rows: 1, Query: INSERT INTO test2 VALUES (4, 14.60, 'd')
+2016-04-26 14:44:49,791 - teradata.udaexec - INFO - Query Successful. Duration: 0.007 seconds, Rows: 1, Query: INSERT INTO test2 VALUES (5, 15.70, 'e')
+2016-04-26 14:44:49,932 - teradata.udaexec - INFO - Query Successful. Duration: 0.140 seconds, Rows: 1, Query: create join index j1 as select c1 from test1
+2016-04-26 14:44:50,109 - teradata.udaexec - INFO - Query Successful. Duration: 0.176 seconds, Rows: 1, Query: create join index j2 as select c1 from test2
+2016-04-26 14:44:50,147 - teradata.udaexec - INFO - Query Successful. Duration: 0.037 seconds, Rows: 5, Query: select t1.c1, t1.c2, t1.c3 from test1 t1, test2 t2
+where t1.c1 = t2.c1
+2016-04-26 14:44:50,171 - teradata.udaexec - INFO - Query Successful. Duration: 0.022 seconds, Rows: 5, Query: select * from test1
+where c1 in (select c1 from test2)
+2016-04-26 14:44:50,173 - teradata.udaexec - INFO - Creating connection: {'method': 'odbc', 'password': 'XXXXXX', 'username': 'python_unit_test', 'system': 'hela'}
+2016-04-26 14:44:50,476 - teradata.udaexec - INFO - Connection successful. Duration: 0.301 seconds. Details: {'method': 'odbc', 'password': 'XXXXXX', 'username': 'python_unit_test', 'system': 'hela'}
+2016-04-26 14:44:50,498 - teradata.udaexec - INFO - Query Successful. Duration: 0.022 seconds, Rows: 2, Query: SELECT * from test1 where c1 < 3
+2016-04-26 14:44:50,522 - teradata.udaexec - INFO - Query Successful. Duration: 0.020 seconds, Rows: 4, Query: SELECT * from test2 where c3 <> 'a'
+2016-04-26 14:44:50,547 - teradata.udaexec - INFO - Query Successful. Duration: 0.023 seconds, Rows: 5, Query: select t1.c1, t1.c2, t1.c3 from test1 t1, test2 t2 where t1.c1 = t2.c1;
+2016-04-26 14:44:50,567 - root - INFO - ================= End: Test Success!] =================
+2016-04-26 14:44:50,568 - teradata.tdodbc - WARNING - 1 open connections found on exit, attempting to close...
+2016-04-26 14:44:50,591 - teradata.udaexec - INFO - UdaExec exiting.

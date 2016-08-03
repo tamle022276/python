@@ -1,0 +1,10 @@
+"""
+>>> prices = {"ACME" : 45.23, "AAPL" : 94.43, "IBM" : 192.05, "HPQ" : 34.81, "FB" : 68.42}
+
+>>> min(zip(prices.values(), prices.keys()))
+(34.81, 'HPQ')
+
+>>> max(zip(prices.values(), prices.keys()))
+(192.05, 'IBM')
+>>>
+"""

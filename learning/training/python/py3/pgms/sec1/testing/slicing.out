@@ -1,0 +1,19 @@
+Trying:
+    s = "start"
+Expecting nothing
+ok
+Trying:
+    s[:3]           # first 3 chars
+Expecting:
+    'sta'
+ok
+Trying:
+    s[1:]           # second to last chars
+Expecting:
+    'tart'
+ok
+1 items passed all tests:
+   3 tests in slicing.txt
+3 tests in 1 items.
+3 passed and 0 failed.
+Test passed.

@@ -1,0 +1,17 @@
+/* run fexp < tam.fexp */
+.logtable test_log;
+
+.logon hela/sit_ldi_pll_stage,sit_ldi_pll_stage;
+
+.begin export sessions 5; 
+
+select * from sit_ldi_pll_stage.LOCATION_PLL sample 1;
+
+.export outfile small.data
+
+mlscript small1.txt;
+
+.end export;
+
+
+.logoff;

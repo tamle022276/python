@@ -1,0 +1,12 @@
+**********************************************************************
+File "testdict1.txt", line 3, in testdict1.txt
+Failed example:
+    D1
+Expected:
+    {'one': 1, 'two': 2}
+Got:
+    {'two': 2, 'one': 1}
+**********************************************************************
+1 items had failures:
+   1 of   2 in testdict1.txt
+***Test Failed*** 1 failures.

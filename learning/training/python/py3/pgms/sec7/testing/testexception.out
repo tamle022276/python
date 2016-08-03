@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: testWithException (__main__.TestException)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "./testexception.py", line 11, in testWithException
+    self.failUnlessRaises(ValueError, raise_error, 12)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+12

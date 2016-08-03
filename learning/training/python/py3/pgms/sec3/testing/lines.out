@@ -1,0 +1,29 @@
+"""
+>>> lines = ["this is line 1", "this is line 2"]
+>>> for line in lines:
+...     print(line)
+...     print()
+... 
+this is line 1
+
+this is line 2
+
+>>> 
+"""
+**********************************************************************
+File "lines.txt", line 3, in lines.txt
+Failed example:
+    for line in lines:
+        print(line)
+        print()
+Expected:
+    this is line 1
+Got:
+    this is line 1
+    <BLANKLINE>
+    this is line 2
+    <BLANKLINE>
+**********************************************************************
+1 items had failures:
+   1 of   2 in lines.txt
+***Test Failed*** 1 failures.

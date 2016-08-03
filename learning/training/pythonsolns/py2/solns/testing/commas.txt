@@ -1,0 +1,18 @@
+"""
+>>> input = "123"
+>>> print input
+123
+>>> input = "1234"
+>>> print "%s,%s" %(input[:-3], input [-3:])
+1,234
+>>> input = "12345"
+>>> print "%s,%s" %(input[:-3], input [-3:])
+12,345
+>>> input = "123456"
+>>> print "%s,%s" %(input[:-3], input [-3:])
+123,456
+>>> input = "1234567"
+>>> print "%s,%s,%s" %(input[:-6], input[-6:-3], input[-3:])
+1,234,567
+>>>
+"""

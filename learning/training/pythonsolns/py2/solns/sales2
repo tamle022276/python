@@ -1,0 +1,58 @@
+#!/bin/bash
+# sales2 - determine yearly sales
+
+com=$(basename $0)
+if [ "$#" -eq 0 ]; then
+	echo "Usage: $com [-sm] month" >&2
+	exit 1
+fi
+
+skip=0;		monthflag=0
+
+while getopts ":sm" opt; do
+	case $opt in
+		s) skip=1;;
+		m) monthflag=1;;
+	    ?) echo "$com: Illegal month or option" >&2
+		   exit 1;;
+	esac
+done
+
+let nw=$OPTIND-1
+shift $nw
+month=$1
+
+# Check for illegal month name
+months="Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"
+found=0
+for i in $months; do
+    if [ $i == "$month" ]; then
+        found=1
+        break
+    fi
+done
+
+if [ $found -eq 0 ]; then
+	echo "$com: Illegal month or option" >&2
+	exit 1
+fi
+
+# Process month
+for m in $months; do
+	if [ $skip -eq 0 -a $monthflag -eq 1 ]; then
+		if [ $m != $month ]; then 
+			continue 
+		fi
+		echo Processing $m
+		break
+	fi
+	if [ $skip -eq 1 ]; then
+		if [ $m == $month ]; then
+			continue 
+		fi
+	fi
+	echo Processing $m
+	if [ $monthflag -eq 0 -a $m == $month ]; then
+		break
+	fi
+done

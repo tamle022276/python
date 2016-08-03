@@ -1,0 +1,8 @@
+"""                 # start of docstring
+>>> s = "start"
+>>> s[:3]           # first 3 chars
+'sta'
+>>> s[1:]           # second to last chars
+'tart'
+>>>
+"""                 # end of docstring

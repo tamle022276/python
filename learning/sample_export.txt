@@ -1,0 +1,20 @@
+/* run fexp < tam.fexp */
+
+/* fastload, mload, tpump */
+
+.logtable sale_tran_log;
+
+.logon hela/sitq_etl_user2,sitq_etl_user2;
+
+.begin export sessions 5;
+
+select * from sit_pdm.return_transaction_line sample 1;
+
+.export outfile small.data
+
+mlscript small1.txt;
+
+.end export;
+
+
+.logoff;

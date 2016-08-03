@@ -1,0 +1,49 @@
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Initializing UdaExec...
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Reading config files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Found run number file: "C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\.runNumber"
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Cleaning up log files older than 90 days.
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Removed 0 log files.
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Checkpoint file not found: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\PYTEST.checkpoint
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - No previous checkpoint found, executing from beginning...
+2016-05-03 15:44:27,818 - teradata.udaexec - INFO - Execution Details:
+/********************************************************************************
+ * Application Name: PYTEST
+ *          Version: 1.0
+ *       Run Number: 20160503154427-27
+ *             Host: WUSTL151006-357
+ *         Platform: Windows-7-6.1.7601-SP1
+ *          OS User: tl151006
+ *   Python Version: 3.5.0
+ *  Python Compiler: MSC v.1900 64 bit (AMD64)
+ *     Python Build: ('v3.5.0:374f501f4567', 'Sep 13 2015 02:27:37')
+ *  UdaExec Version: 15.10.0.15
+ *     Program Name: test_python.py
+ *      Working Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test
+ *          Log Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs
+ *         Log File: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160503154427-27.log
+ *     Config Files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+ *      Query Bands: ApplicationName=PYTEST;Version=1.0;JobID=20160503154427-27;ClientUser=tl151006;Production=False;udaAppLogFile=C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160503154427-27.log;UtilityName=PyTd;UtilityVersion=15.10.0.15
+********************************************************************************/
+2016-05-03 15:44:27,833 - teradata.udaexec - INFO - Creating connection: {'method': 'odbc', 'username': 'dbc', 'system': 'hela', 'password': 'XXXXXX'}
+2016-05-03 15:44:27,849 - teradata.udaexec - ERROR - Unable to create connection: {'method': 'odbc', 'username': 'dbc', 'system': 'hela', 'password': 'XXXXXX'}
+Traceback (most recent call last):
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\udaexec.py", line 172, in connect
+    **args))
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 374, in __init__
+    checkStatus(rc, hDbc=self.hDbc, method="SQLDriverConnectW")
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 206, in checkStatus
+    raise DatabaseError(i[2], u"[{}] {}".format(i[0], msg), i[0])
+teradata.api.DatabaseError: (0, '[HY000] [Teradata][ODBC Teradata Driver] Loading the Teradata ICU Library Failed. Error is: 126, The driver returned invalid (or failed to return) SQL_DRIVER_ODBC_VER: 03.80')
+2016-05-03 15:44:27,849 - root - ERROR - Traceback (most recent call last):
+  File "test_python.py", line 201, in <module>
+    with udaExec.connect(method=con_method, system="hela", username="dbc", password="dbc") as dbc_con:
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\udaexec.py", line 172, in connect
+    **args))
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 374, in __init__
+    checkStatus(rc, hDbc=self.hDbc, method="SQLDriverConnectW")
+  File "C:\Users\TL151006\AppData\Local\Programs\Python\Python35\lib\site-packages\teradata\tdodbc.py", line 206, in checkStatus
+    raise DatabaseError(i[2], u"[{}] {}".format(i[0], msg), i[0])
+teradata.api.DatabaseError: (0, '[HY000] [Teradata][ODBC Teradata Driver] Loading the Teradata ICU Library Failed. Error is: 126, The driver returned invalid (or failed to return) SQL_DRIVER_ODBC_VER: 03.80')
+
+2016-05-03 15:44:27,849 - root - INFO - ================== End: Test Failed!] ==================
+2016-05-03 15:44:27,849 - teradata.udaexec - INFO - UdaExec exiting.

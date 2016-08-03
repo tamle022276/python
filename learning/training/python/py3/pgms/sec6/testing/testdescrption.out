@@ -1,0 +1,11 @@
+In setup() for Test 1
+In test1()
+In tearDown() for Test 1
+In setup() for Test 2
+In test2()
+In tearDown() for Test 2
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK

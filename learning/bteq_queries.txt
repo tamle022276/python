@@ -1,0 +1,6 @@
+select * from dbc.dbcinfo;
+select current_timestamp;
+select * from dbc.dbcinf;
+.HANG 30
+select current_timestam;
+logoff;

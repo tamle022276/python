@@ -1,0 +1,63 @@
+DEFINE JOB EXPORT_DATA_USING_EXPORT_OPER
+DESCRIPTION 'EXPORT DATA USING EXPORT OPERATOR'
+(
+   DEFINE SCHEMA [% target_table_nopi %][% clone_id %]_SCHEMA
+   DESCRIPTION 'This is [% target_table_nopi %][% clone_id %] SCHEMA'
+   (
+      RETURN_TRAN_ID BIGINT,
+      RETURN_TRAN_LINE_NUM VARCHAR(3),
+      RETURNED_ITEM_ID VARCHAR(20),
+      RETURN_ITEM_QTY INTEGER,
+      UNIT_REFUND_AMT DECIMAL(18,2),
+      ORIGINAL_SALES_TRAN_ID BIGINT,
+      ORIGINAL_SALES_TRAN_LINE_NUM SMALLINT,
+      RETURN_TRAN_LINE_START_DTTM CHAR(26),
+      RETURN_TRAN_LINE_END_DTTM CHAR(26),
+      TRAN_LINE_STATUS_CD CHAR(1),
+      RETURN_REASON_CD VARCHAR(50),
+      LOCATION_ID INTEGER,
+      RETURN_ITEM_DURATION_1 CHAR(9),
+      RETURN_ITEM_DURATION_2 CHAR(6),
+      RETURN_ITEM_DURATION_3 CHAR(19)  
+   );
+
+   DEFINE OPERATOR EXPORT_OPERATOR
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER EXPORT OPERATOR'
+   TYPE EXPORT
+   SCHEMA [% target_table_nopi %][% clone_id %]_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = 'none',
+      VARCHAR PrivateLogName    = 'exportoper_privatelog',
+      VARCHAR DataEncryption    = 'On',
+      VARCHAR TdpId             = 'role:dbs_server',
+      VARCHAR UserName          = '[% etl_user %]',
+      VARCHAR UserPassword      = '[% etl_user %]',
+      VARCHAR SelectStmt        = 'SELECT * FROM [% source_database %].[% source_table %] sample 20000;',
+      INTEGER MaxSessions       = 4,
+      INTEGER MinSessions       = 1
+   );
+
+   DEFINE OPERATOR FILE_WRITER
+   DESCRIPTION 'TERADATA PARALLEL TRANSPORTER DATA CONNECTOR OPERATOR'
+   TYPE DATACONNECTOR CONSUMER
+   SCHEMA [% target_table_nopi %][% clone_id %]_SCHEMA
+   ATTRIBUTES
+   (
+      VARCHAR TraceLevel        = 'none',
+      VARCHAR PrivateLogName    = 'dataconnoper_privatelog',
+      VARCHAR DataEncryption    = 'On',
+      VARCHAR FileName          = 'returntranlinepipe',
+      VARCHAR IndicatorMode     = 'Y',
+      VARCHAR OpenMode          = 'Write',
+      VARCHAR Format            = 'formatted',
+      VARCHAR DirectoryPath     = '/local/datafiles/sit_etl/role:dbs_server'
+   );
+
+   STEP step_export_data
+   (
+      APPLY TO OPERATOR (FILE_WRITER [1])
+
+      SELECT * FROM OPERATOR (EXPORT_OPERATOR [2]);
+   );
+);

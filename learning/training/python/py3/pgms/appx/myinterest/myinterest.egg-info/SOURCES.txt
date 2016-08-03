@@ -1,0 +1,12 @@
+LICENSE
+MANIFEST.in
+setup.py
+myinterest/__init__.py
+myinterest/__main__.py
+myinterest/loans.py
+myinterest/myinterest.py
+myinterest.egg-info/PKG-INFO
+myinterest.egg-info/SOURCES.txt
+myinterest.egg-info/dependency_links.txt
+myinterest.egg-info/entry_points.txt
+myinterest.egg-info/top_level.txt

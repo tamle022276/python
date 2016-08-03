@@ -1,0 +1,8 @@
+testDict (__main__.TestRunner) ... ok
+testIn (__main__.TestRunner) ... ok
+testItems (__main__.TestRunner) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

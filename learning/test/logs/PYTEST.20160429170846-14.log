@@ -1,0 +1,31 @@
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Initializing UdaExec...
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Reading config files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Found run number file: "C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\.runNumber"
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Cleaning up log files older than 90 days.
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Removed 0 log files.
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Checkpoint file not found: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\PYTEST.checkpoint
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - No previous checkpoint found, executing from beginning...
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Execution Details:
+/********************************************************************************
+ * Application Name: PYTEST
+ *          Version: 1.0
+ *       Run Number: 20160429170846-14
+ *             Host: WUSTL151006-357
+ *         Platform: Windows-7-6.1.7601-SP1
+ *          OS User: tl151006
+ *   Python Version: 3.5.0
+ *  Python Compiler: MSC v.1900 64 bit (AMD64)
+ *     Python Build: ('v3.5.0:374f501f4567', 'Sep 13 2015 02:27:37')
+ *  UdaExec Version: 15.10.0.15
+ *     Program Name: test_python.py
+ *      Working Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test
+ *          Log Dir: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs
+ *         Log File: C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160429170846-14.log
+ *     Config Files: ['C:\\etc\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\udaexec.ini: Not Found', 'C:\\Users\\TL151006\\Desktop\\dev\\trunk\\tests\\sit_jmeter_poc\\tl151006\\test\\udaexec.ini: Not Found']
+ *      Query Bands: ApplicationName=PYTEST;Version=1.0;JobID=20160429170846-14;ClientUser=tl151006;Production=False;udaAppLogFile=C:\Users\TL151006\Desktop\dev\trunk\tests\sit_jmeter_poc\tl151006\test\logs\PYTEST.20160429170846-14.log;UtilityName=PyTd;UtilityVersion=15.10.0.15
+********************************************************************************/
+2016-04-29 17:08:46,493 - teradata.udaexec - INFO - Creating connection: {'username': 'dbc', 'method': 'odbc', 'system': 'monopoly', 'password': 'XXXXXX'}
+2016-04-29 17:09:01,282 - teradata.udaexec - INFO - Connection successful. Duration: 14.789 seconds. Details: {'username': 'dbc', 'method': 'odbc', 'system': 'monopoly', 'password': 'XXXXXX'}
+2016-04-29 17:09:05,666 - teradata.udaexec - INFO - Query Successful. Duration: 4.384 seconds, Rows: 55, Query: select TableName, TableKind from DBC.Tables where DatabaseName = 'sit_pdm'
+2016-04-29 17:09:16,695 - root - INFO - ================= End: Test Success!] =================
+2016-04-29 17:09:16,711 - teradata.udaexec - INFO - UdaExec exiting.
