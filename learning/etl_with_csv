@@ -1,0 +1,47 @@
+import csv
+import teradata
+
+def extract_from_source (con_source, filename):
+    try:
+    
+        cursor = con_source.cursor()
+        cursor.execute("select col1, col2 from table1")
+    
+        with open(filename, "w", newline='') as f:
+            writer = csv.writer(f, delimiter=",")
+            for row in cursor:
+                writer.writerow(row)
+                
+    except Exception:
+        raise
+            
+def load_to_target (con_target, filename):
+    try:
+    
+        sql = "insert into table1 (col1, col2) values (?, ?)"
+        cursor = con_target.cursor()
+        with open(filename, "r") as f:
+            reader = csv.reader(f, delimiter=",")
+            for row in reader:
+                cursor.execute (sql, row)
+                
+    except Exception:
+        raise
+        
+if __name__ == "__main__":
+    try:
+        udaExec = teradata.UdaExec(appName= "TEST", version = 1, logConsole = True)
+        con_source = udaExec.connect(method = "odbc", system = "source_dbs", username = "user", password = "pw")
+        con_target = udaExec.connect(method = "odbc", system = "target_dbs", username = "user", password = "pw")
+
+        filename = "data.csv"
+
+        # Extract data, this will write data to data.csv
+        extract_from_source (con_source, filename)
+        
+        # Load data, this will load data from data.csv
+        load_to_target (con_target, filename)
+        
+    except Exception as e:
+        raise
+
